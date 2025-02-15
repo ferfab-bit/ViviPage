@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Vivi</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #fffaf8;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 10px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #fff0f5, #fff6e9);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(243, 167, 167, 0.08);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        header:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(243, 167, 167, 0.15);
+        }
+        
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            color: #e07a95;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(224, 122, 149, 0.1);
+        }
+        
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+        }
+        
+        p.intro {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 25px;
+            color: #666;
+            font-weight: 300;
+            padding: 0 15px;
+        }
+        
+        @media (min-width: 768px) {
+            p.intro {
+                font-size: 1.3rem;
+            }
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #e07a95, #f0b775);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 4px 15px rgba(224, 122, 149, 0.2);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f0b775, #e07a95);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            border-radius: 50px;
+        }
+        
+        .btn:hover, .btn:active {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(224, 122, 149, 0.3);
+        }
+        
+        .btn:hover:after {
+            opacity: 1;
+        }
+        
+        /* Nuevo estilo para el título principal de la galería */
+        .gallery-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #e07a95;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(224, 122, 149, 0.1);
+        }
+        
+        @media (min-width: 768px) {
+            .gallery-title {
+                font-size: 3rem;
+                margin-bottom: 40px;
+            }
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        @media (min-width: 640px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .gallery {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 30px;
+            }
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(224, 122, 149, 0.08);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background: white;
+            cursor: pointer;
+        }
+        
+        .gallery-item:hover, .gallery-item:active {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(224, 122, 149, 0.12);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            filter: brightness(0.95);
+            border-radius: 20px 20px 0 0;
+        }
+        
+        @media (min-width: 768px) {
+            .gallery-item img {
+                height: 280px;
+            }
+        }
+        
+        .gallery-item:hover img, .gallery-item:active img {
+            transform: scale(1.04);
+            filter: brightness(1.05);
+        }
+        
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(224, 122, 149, 0.9), rgba(240, 183, 117, 0.7));
+            color: white;
+            padding: 20px;
+            border-radius: 0 0 20px 20px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform: translateY(0);
+        }
+        
+        .gallery-item:hover .overlay {
+            transform: translateY(-5px);
+        }
+        
+        .overlay p {
+            font-size: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .overlay p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        .spotify-animation {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8a4f99, #3a3ae1);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .spotify-animation.visible {
+            opacity: 1;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .close-btn:hover, .close-btn:active {
+            transform: rotate(90deg);
+            background: rgba(255, 255, 255, 0.25);
+        }
+        
+        .music-visualizer {
+            display: flex;
+            align-items: flex-end;
+            height: 120px;
+            width: 80%;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        @media (min-width: 768px) {
+            .music-visualizer {
+                height: 150px;
+                width: 60%;
+            }
+        }
+        
+        .bar {
+            width: 8px;
+            margin: 0 3px;
+            border-radius: 8px 8px 0 0;
+            animation: equalize 2.2s infinite;
+            opacity: 0.9;
+            background: linear-gradient(to top, #ff67b1, #fff67b);
+            transform-origin: bottom;
+            transition: all 0.2s ease;
+        }
+        
+        @media (min-width: 768px) {
+            .bar {
+                width: 10px;
+                margin: 0 4px;
+            }
+        }
+        
+        @keyframes equalize {
+            0% {transform: scaleY(0.3);}
+            25% {transform: scaleY(0.8);}
+            50% {transform: scaleY(0.4);}
+            75% {transform: scaleY(0.7);}
+            100% {transform: scaleY(0.3);}
+        }
+        
+        .bar:nth-child(1) {animation-delay: 0.2s;}
+        .bar:nth-child(2) {animation-delay: 0.4s;}
+        .bar:nth-child(3) {animation-delay: 0.6s;}
+        .bar:nth-child(4) {animation-delay: 0.8s;}
+        .bar:nth-child(5) {animation-delay: 1.0s;}
+        .bar:nth-child(6) {animation-delay: 0.8s;}
+        .bar:nth-child(7) {animation-delay: 0.6s;}
+        .bar:nth-child(8) {animation-delay: 0.4s;}
+        .bar:nth-child(9) {animation-delay: 0.2s;}
+        .bar:nth-child(10) {animation-delay: 0s;}
+        
+        .song-info {
+            color: white;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+            width: 100%;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .spotify-animation.visible .song-info {
+            transform: translateY(0);
+            opacity: 1;
+            transition-delay: 0.2s;
+        }
+        
+        .song-info h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        @media (min-width: 768px) {
+            .song-info h3 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        .song-info p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+        
+        .spotify-btn {
+            display: inline-block;
+            background: #1DB954;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .spotify-btn:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            border-radius: 50px;
+        }
+        
+        .spotify-btn:hover, .spotify-btn:active {
+            background: #1ed760;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(29, 185, 84, 0.4);
+        }
+        
+        .spotify-btn:hover:after {
+            transform: translateX(0);
+        }
+        
+        
+        .carta-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(224, 122, 149, 0.12);
+            position: relative;
+            transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards 0.2s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .carta-container {
+                padding: 50px;
+                margin: 50px auto;
+            }
+        }
+        
+        .carta-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(135deg, #e07a95, #f0b775);
+            z-index: -1;
+            border-radius: 25px;
+            opacity: 0.2;
+            transition: opacity 0.5s ease;
+        }
+        
+        .carta-container:hover::before {
+            opacity: 0.3;
+        }
+        
+        .carta-header {
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeInUp 0.6s forwards 0.4s;
+        }
+        
+        @media (min-width: 768px) {
+            .carta-header {
+                margin-bottom: 40px;
+            }
+        }
+        
+        .carta-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #e07a95;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(224, 122, 149, 0.1);
+        }
+        
+        @media (min-width: 768px) {
+            .carta-title {
+                font-size: 3.2rem;
+            }
+        }
+        
+        .carta-date {
+            font-style: italic;
+            color: #888;
+            font-size: 1rem;
+        }
+        
+        .carta-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            font-weight: 300;
+        }
+        
+        .carta-content p {
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeInUp 0.5s forwards;
+        }
+        
+        .carta-content p:nth-child(1) { animation-delay: 0.5s; }
+        .carta-content p:nth-child(2) { animation-delay: 0.7s; }
+        .carta-content p:nth-child(3) { animation-delay: 0.9s; }
+        .carta-content p:nth-child(4) { animation-delay: 1.1s; }
+        .carta-content p:nth-child(5) { animation-delay: 1.3s; }
+        .carta-content p:nth-child(6) { animation-delay: 1.5s; }
+        
+        @media (min-width: 768px) {
+            .carta-content {
+                font-size: 1.2rem;
+                line-height: 1.9;
+            }
+            
+            .carta-content p {
+                margin-bottom: 25px;
+            }
+        }
+        
+        .carta-signature {
+            text-align: right;
+            margin-top: 40px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #e07a95;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeInUp 0.5s forwards 1.7s;
+        }
+        
+        @media (min-width: 768px) {
+            .carta-signature {
+                margin-top: 50px;
+                font-size: 2rem;
+            }
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #e07a95, #f0b775);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 4px 15px rgba(224, 122, 149, 0.2);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeInUp 0.5s forwards 1.9s;
+        }
+        
+        .back-btn:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f0b775, #e07a95);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            border-radius: 50px;
+        }
+        
+        @media (min-width: 768px) {
+            .back-btn {
+                margin-top: 40px;
+                padding: 12px 30px;
+            }
+        }
+        
+        .back-btn:hover, .back-btn:active {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(224, 122, 149, 0.3);
+        }
+        
+        .back-btn:hover:after {
+            opacity: 1;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #888;
+            font-size: 0.9rem;
+            background: linear-gradient(135deg, #fff0f5, #fff6e9);
+            border-radius: 20px;
+            margin-top: 50px;
+            box-shadow: 0 5px 15px rgba(243, 167, 167, 0.08);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        
+        footer:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(243, 167, 167, 0.12);
+        }
+        
+        @media (min-width: 768px) {
+            footer {
+                padding: 40px 0;
+                font-size: 1rem;
+                margin-top: 70px;
+            }
+        }
+        
+        .heart {
+            color: #e07a95;
+            font-size: 1.2rem;
+            animation: beat 1.8s infinite alternate;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 5px;
+            transform-origin: center;
+        }
+        
+        @media (min-width: 768px) {
+            .heart {
+                font-size: 1.4rem;
+            }
+        }
+        
+        @keyframes beat {
+            from {transform: scale(1);}
+            to {transform: scale(1.15);}
+        }
+        
+       
+        #home-page, #carta-page {
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        #home-page.hidden, #carta-page.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="home-page" class="container">
+        <header>
+            <h1>Para mi Vivi</h1>
+            <p class="intro">He creado este espacio para expresar lo que siento, con música y mucho mas..</p>
+            <a href="#carta" class="btn" id="show-carta">Siguiente</a>
+        </header>
+        
+        <!--Galeria de canciones-->
+        <h2 class="gallery-title">Canciones que me hacen recordarte....</h2>
+        
+        <div class="gallery">
+            <div class="gallery-item" onclick="openSpotifyAnimation('My Favorite Part', 'https://open.spotify.com/intl-es/track/66wkCYWlXzSTQAfnsPBptt?si=74b956bac05b40d8')">
+                <img src="C:\Users\fabia\Desktop\Programacion\Pagina\imagenes\cancion1.jpg">
+                <div class="overlay">
+                    <p>Haz clic</p>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openSpotifyAnimation('Daydreamin´', 'https://open.spotify.com/intl-es/track/7c86ULTZD9eNdAbJDQLRaC?si=76b213e7463e4a00')">
+                <img src="C:\Users\fabia\Desktop\Programacion\Pagina\imagenes\cancion2.jpg">
+                <div class="overlay">
+                    <p>Haz clic </p>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openSpotifyAnimation('Moonlight', 'https://open.spotify.com/intl-es/track/1qcJdr8TYuGjFhjRoYNC3e?si=2ce727f85f3e4d4f')">
+                <img src="C:\Users\fabia\Desktop\Programacion\Pagina\imagenes\cancion3.jpg">
+                <div class="overlay">
+                    <p>Haz clic </p>
+                </div>
+            </div>
+            <div class="gallery-item" onclick="openSpotifyAnimation('intro (en of the world)', 'https://open.spotify.com/intl-es/track/1AVcvrXkUdtukUYN4307oC?si=1eee3ec8d8b047a3')">
+                <img src="C:\Users\fabia\Desktop\Programacion\Pagina\imagenes\cancion4.jpg">
+                <div class="overlay">
+                    <p>Haz clic </p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Hecho con <span class="heart">♥</span> para ti</p>
+        </footer>
+    </div>
+    
+    <!-- Página de la carta-->
+    <div id="carta-page" class="container hidden" style="display: none;">
+        <div class="carta-container">
+            <div class="carta-header">
+                <h2 class="carta-title">Lo que siento por ti</h2>
+                <p class="carta-date"></p>
+            </div>
+            
+            <div class="carta-content">
+                <p>Querida Vivi,</p>
+                
+                <p>Hay momentos en la vida en los que las palabras parecen insuficientes para expresar lo que siento por ti. Pero veme aqui, tratando de expresar y explicar todo lo que siento en esta carta.</p>
+                
+                <p>Recuerdo la primera vez que nos vimos, cómo me moria de temor del saber sobre nuestra primera interacción despues de tiempo hablando pero sin haberlo hecho en persona, pero todos estos pensamientos se fueron al insante en donde el tiempo pareció detenerse y el mundo a nuestro alrededor desapareció. Desde entonces,  me has traido paz , mis pensamientos de inspiración y mi corazón de un amor que crece constantemente.</p>
+                <p>No hace poco me has preguntado una cosa muy dicil de responder, ¿Que te gusta de mi?  y digo que es dificil de responder ya que es complicado hacerlo en tan pocas palabras teniendo tantas cosas por expresar. Sonaré muy cilché al decir que me gusta todo de ti, pero si tengo que enfrascarlo en varias palabras diría que me encanta ese cabello hermoso que delumbra cada vez que te veo, esos hermosos ojos que al principio no me dejabas ver,
+                   pero como no todo es superficial, me encanta que desde el primer instante de interacción como te expresabas y que recuerdo que me dijiste que eras alguien que le gustaba demostrar su amor a diestra y siniestra mientras solo en mi mente pasaba "fak, eso es justo lo que me encanta".
+                </p>
+                
+                <p>Las canciones que he elegido para ti en esta página, como habrás notado, han tenido meramente tu influencia en mi elección. A excepción de una, todas han sido dedicatorias tuyas, pero también quiero que sepas que cada canción de estas, y muchas más, me hacen recordarte al instante.
+
+                    Cada melodía, cada letra, cuenta una parte de lo que hemos vivido y lo que espero que vivamos. Cada nota me lleva de vuelta a momentos que atesoro, a risas, miradas y sentimientos que siguen vivos en mí. No importa cuánto tiempo pase, estas canciones siempre serán un reflejo de lo que significas para mí. Algunas cuentan nuestra historia, otras lo que deseo que sigamos construyendo. Porque más allá de la música, eres tú quien le da sentido a cada una.</p>
+                
+                <p>Gracias por ser exactamente quien eres, por tu sonrisa que ilumina mis días, por tu apoyo en los momentos difíciles.</p>
+                
+                <p>Este es solo un pequeño gesto para decirte lo mucho que significas para mí. Te quiero hoy, mañana y siempre.</p>
+                
+                <div class="carta-signature">Con todo mi amor, Fabian</div>
+            </div>
+            
+            <a href="#home" class="back-btn" id="back-to-home">Inicio</a>
+        </div>
+    </div>
+    
+    <!-- Animación Canciones-->
+    <div class="spotify-animation" id="spotify-animation">
+        <div class="close-btn" onclick="closeSpotifyAnimation()">&times;</div>
+        
+        <div class="music-visualizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        
+        <div class="song-info">
+            <h3 id="song-title">Título de la Canción</h3>
+            <a id="spotify-link" href="#" class="spotify-btn" target="_blank">Escuchar en Spotify</a>
+        </div>
+    </div>
+    
+    <script>
+        // 
+        document.getElementById('show-carta').addEventListener('click', function(e) {
+            e.preventDefault();
+            var homePage = document.getElementById('home-page');
+            var cartaPage = document.getElementById('carta-page');
+            
+            homePage.classList.add('hidden');
+            
+            setTimeout(function() {
+                homePage.style.display = 'none';
+                cartaPage.style.display = 'block';
+                
+                // Forzar un reflow
+                void cartaPage.offsetWidth;
+                
+                cartaPage.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }, 600);
+        });
+        
+        document.getElementById('back-to-home').addEventListener('click', function(e) {
+            e.preventDefault();
+            var homePage = document.getElementById('home-page');
+            var cartaPage = document.getElementById('carta-page');
+            
+            cartaPage.classList.add('hidden');
+            
+            setTimeout(function() {
+                cartaPage.style.display = 'none';
+                homePage.style.display = 'block';
+                
+                // Forzar un reflow
+                void homePage.offsetWidth;
+                
+                homePage.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }, 600);
+        });
+        
+        // Funciones 
+        function openSpotifyAnimation(title, spotifyUrl) {
+            var spotifyAnimation = document.getElementById('spotify-animation');
+            document.getElementById('song-title').textContent = title;
+            document.getElementById('spotify-link').href = spotifyUrl;
+            
+            spotifyAnimation.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Forzar un reflow
+            void spotifyAnimation.offsetWidth;
+            
+            spotifyAnimation.classList.add('visible');
+        }
+        
+        function closeSpotifyAnimation() {
+            var spotifyAnimation = document.getElementById('spotify-animation');
+            spotifyAnimation.classList.remove('visible');
+            
+            setTimeout(function() {
+                spotifyAnimation.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 500);
+        }
+        
+        // Inicializar la página
+        window.onload = function() {
+            document.getElementById('home-page').classList.remove('hidden');
+        };
+    </script>
+</body>
+</html>
